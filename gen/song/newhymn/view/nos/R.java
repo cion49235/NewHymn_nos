@@ -1077,38 +1077,43 @@ containing a value of this type.
         public static final int abs__textButton=0x7f080013;
         public static final int abs__title=0x7f08001b;
         public static final int abs__up=0x7f080001;
-        public static final int ad_layout=0x7f08003e;
-        public static final int admob_native=0x7f08003f;
-        public static final int bt_hymn_background=0x7f08003d;
-        public static final int bt_hymn_continue=0x7f08003c;
-        public static final int bt_pause=0x7f08003b;
-        public static final int btn_close=0x7f080042;
-        public static final int control_btn_layout=0x7f080038;
-        public static final int current_time=0x7f08003a;
+        public static final int ad_layout=0x7f080042;
+        public static final int admob_native=0x7f080043;
+        public static final int autoLayout=0x7f080032;
+        public static final int autoWebView=0x7f080034;
+        public static final int bt_hymn_background=0x7f080041;
+        public static final int bt_hymn_continue=0x7f080040;
+        public static final int bt_pause=0x7f08003f;
+        public static final int btn_close=0x7f080046;
+        public static final int control_btn_layout=0x7f08003c;
+        public static final int current_time=0x7f08003e;
         public static final int disableHome=0x7f08000a;
         public static final int edit_query=0x7f080026;
-        public static final int edit_searcher=0x7f080041;
+        public static final int edit_searcher=0x7f080045;
         public static final int homeAsUp=0x7f08000b;
-        public static final int hymn_control_panel_layout=0x7f080037;
-        public static final int img_hymn=0x7f080033;
-        public static final int img_more=0x7f080046;
-        public static final int layout_img_biblesong=0x7f080032;
-        public static final int layout_listview_main=0x7f080043;
-        public static final int layout_nodata=0x7f080034;
-        public static final int layout_progress=0x7f080036;
+        public static final int hymn_control_panel_layout=0x7f08003b;
+        public static final int img_hymn=0x7f080037;
+        public static final int img_more=0x7f08004a;
+        public static final int layout_img_biblesong=0x7f080036;
+        public static final int layout_listview_main=0x7f080047;
+        public static final int layout_nodata=0x7f080038;
+        public static final int layout_progress=0x7f08003a;
         public static final int listMode=0x7f080007;
-        public static final int listview=0x7f080044;
+        public static final int listview=0x7f080048;
+        public static final int mainLayout=0x7f080033;
         public static final int normal=0x7f080008;
-        public static final int pager=0x7f080047;
+        public static final int pager=0x7f08004b;
+        public static final int progressBar1=0x7f08004c;
         public static final int showCustom=0x7f08000c;
         public static final int showHome=0x7f08000d;
         public static final int showTitle=0x7f08000e;
         public static final int tabMode=0x7f080009;
-        public static final int txt_hymn_title=0x7f080039;
-        public static final int txt_name=0x7f080045;
-        public static final int txt_nodata=0x7f080035;
+        public static final int txt_hymn_title=0x7f08003d;
+        public static final int txt_name=0x7f080049;
+        public static final int txt_nodata=0x7f080039;
         public static final int useLogo=0x7f08000f;
-        public static final int webview=0x7f080040;
+        public static final int webview=0x7f080044;
+        public static final int whiteLayout=0x7f080035;
         public static final int wrap_content=0x7f080006;
     }
     public static final class integer {
@@ -1137,13 +1142,16 @@ containing a value of this type.
         public static final int abs__search_dropdown_item_icons_2line=0x7f030012;
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
-        public static final int activity_hymn_view=0x7f030015;
-        public static final int fragment_1=0x7f030016;
-        public static final int fragment_2=0x7f030017;
-        public static final int fragment_listrow=0x7f030018;
-        public static final int fragment_main=0x7f030019;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001a;
-        public static final int sherlock_spinner_item=0x7f03001b;
+        public static final int activity_autolayout=0x7f030015;
+        public static final int activity_devicelayout=0x7f030016;
+        public static final int activity_hymn_view=0x7f030017;
+        public static final int fragment_1=0x7f030018;
+        public static final int fragment_2=0x7f030019;
+        public static final int fragment_listrow=0x7f03001a;
+        public static final int fragment_main=0x7f03001b;
+        public static final int progress_circle=0x7f03001c;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001d;
+        public static final int sherlock_spinner_item=0x7f03001e;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1236,6 +1244,7 @@ containing a value of this type.
         public static final int AppTheme=0x7f0a005a;
         public static final int MediaButton=0x7f0a005c;
         public static final int MediaButton_Play=0x7f0a005b;
+        public static final int NewDialog=0x7f0a005d;
         public static final int Sherlock___TextAppearance_Small=0x7f0a0046;
         public static final int Sherlock___Theme=0x7f0a0051;
         public static final int Sherlock___Theme_DarkActionBar=0x7f0a0053;
@@ -1325,6 +1334,7 @@ containing a value of this type.
         public static final int Widget_Sherlock_SearchAutoCompleteTextView=0x7f0a0034;
         public static final int Widget_Sherlock_Spinner_DropDown_ActionBar=0x7f0a0024;
         public static final int Widget_Sherlock_TextView_SpinnerItem=0x7f0a0032;
+        public static final int full_screen_dialog=0x7f0a005e;
     }
     public static final class styleable {
         /**  Attributes used to style the Action Bar. 
@@ -2375,7 +2385,7 @@ containing a value of this type.
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x0116005e
+            0x01010262, 0x010102ac, 0x010102ad, 0x01110097
         };
         /**
           <p>

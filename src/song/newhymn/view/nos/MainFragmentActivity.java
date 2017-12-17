@@ -3,6 +3,11 @@ package song.newhymn.view.nos;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
 import com.admixer.CustomPopup;
 import com.admixer.CustomPopupListener;
 import com.google.android.gms.ads.AdRequest;
@@ -10,6 +15,7 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,10 +26,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import kr.co.inno.autocash.service.AutoServiceActivity;
 import song.newhymn.view.nos.fragment.FragmentActivity2;
-public class MainFragmentActivity extends SherlockFragmentActivity implements CustomPopupListener{
+import song.newhymn.view.nos.util.PreferenceUtil;
+public class MainFragmentActivity extends SherlockFragmentActivity implements CustomPopupListener, AdViewListener{
 	private ActionBar actionbar;
 	private ViewPager viewpager;
 	private Tab tab;
@@ -37,6 +46,9 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		setContentView(R.layout.fragment_main);
 		context = this;
+		AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMIXER, "47bjv5uh");
+    	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9445252567");
+    	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/1921985766");
 		
 		actionbar = getSupportActionBar();
 //		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -80,28 +92,57 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
 		actionbar.addTab(tab);
 		CustomPopup.setCustomPopupListener(this);
         CustomPopup.startCustomPopup(this, "47bjv5uh");
-		init_admob_naive();
+//		init_admob_naive();
+        addBannerView();
+        auto_service();
 		exit_handler();
 	}
+	
+	private void auto_service() {
+        Intent intent = new Intent(context, AutoServiceActivity.class);
+        context.stopService(intent);
+        context.startService(intent);
+    }
+	
+	public static RelativeLayout ad_layout;
+	public void addBannerView() {
+    	AdInfo adInfo = new AdInfo("47bjv5uh");
+    	adInfo.setTestMode(false);
+        AdView adView = new AdView(this);
+        adView.setAdInfo(adInfo, this);
+        adView.setAdViewListener(this);
+        ad_layout = (RelativeLayout)findViewById(R.id.ad_layout);
+        if(ad_layout != null){
+        	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            ad_layout.addView(adView, params);	
+        }
+    }
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		admobNative.pause();
+//		admobNative.pause();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		admobNative.resume();
+//		admobNative.resume();
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		CustomPopup.stopCustomPopup();
-		admobNative.destroy();
+//		admobNative.destroy();
 	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false);
+	}
+	
 	
 	public class TabContentAdapter extends FragmentPagerAdapter {
 		private int PAGE_COUNT = 1;
@@ -164,6 +205,7 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
 					 handler.postDelayed(new Runnable() {
 						 @Override
 						 public void run() {
+							 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
 							 finish();
 						 }
 					 },0);
@@ -204,6 +246,21 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
 	@Override
 	public void onWillShowCustomPopup(String arg0) {
 	
+	}
+
+	@Override
+	public void onClickedAd(String arg0, AdView arg1) {
+		
+	}
+
+	@Override
+	public void onFailedToReceiveAd(int arg0, String arg1, AdView arg2) {
+		
+	}
+
+	@Override
+	public void onReceivedAd(String arg0, AdView arg1) {
+		
 	}
 
 }

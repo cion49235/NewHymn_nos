@@ -42,6 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import song.newhymn.view.nos.dao.Const;
 import song.newhymn.view.nos.dao.DBOpenHelper_Fragment1;
 import song.newhymn.view.nos.dao.DBOpenHelper_Fragment2;
 import song.newhymn.view.nos.util.NetworkHelper;
@@ -87,8 +88,10 @@ public class HymnViewActivity extends Activity implements AdViewListener, OnClic
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9445252567");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/1921985766");
 		context = this;
-//		addBannerView();
-		init_admob_naive();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+			addBannerView();	
+		}
+//		init_admob_naive();
 		init_ui();
 		telephony_manager();
 		get_data();
@@ -108,19 +111,19 @@ public class HymnViewActivity extends Activity implements AdViewListener, OnClic
 	@Override
 	protected void onPause() {
 		super.onPause();
-		admobNative.pause();
+//		admobNative.pause();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		admobNative.resume();
+//		admobNative.resume();
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		admobNative.destroy();
+//		admobNative.destroy();
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		action_background = false;
 		if(downloadImageAsync != null){
@@ -347,7 +350,9 @@ public class HymnViewActivity extends Activity implements AdViewListener, OnClic
 			}
 			if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_HYMN_CONTINUE, hymn_continue) == true){
 				action_background = false;
-				addInterstitialView();
+				if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+					addInterstitialView();	
+				}
 				handler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
@@ -512,9 +517,13 @@ public class HymnViewActivity extends Activity implements AdViewListener, OnClic
 			}
 		}else if(view == bt_hymn_background){
 			if(mediaPlayer != null && mediaPlayer.isPlaying() ){
-				action_background = true;
 				Toast.makeText(context, context.getString(R.string.txt_background_play), Toast.LENGTH_LONG).show();
-				addInterstitialView();
+				if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+					action_background = true;
+					addInterstitialView();	
+				}else {
+					home_action();
+				}
 			}
 		}else{
 			return;
@@ -576,9 +585,11 @@ public class HymnViewActivity extends Activity implements AdViewListener, OnClic
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-			Toast.makeText(context, context.getString(R.string.txt_after_ad), Toast.LENGTH_LONG).show();
 			mediaplayer_stop();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.txt_after_ad), Toast.LENGTH_LONG).show();
+				addInterstitialView();
+			}			
 			 handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {

@@ -43,6 +43,7 @@ import cz.msebera.android.httpclient.client.ClientProtocolException;
 import kr.co.inno.autocash.Autoapp_DBopenHelper;
 import kr.co.inno.autocash.RestartReceiver;
 import kr.co.inno.autocash.cms.AppData;
+import song.newhymn.view.nos.dao.Const;
 import song.newhymn.view.nos.util.PreferenceUtil;
 
 @SuppressLint({"InflateParams"})
@@ -119,9 +120,11 @@ public class AutoServiceActivity extends Service
                     }
                 }
             }         */
-            if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
-            	adstatus_async = new Adstatus_Async();
-                adstatus_async.execute();	 
+            if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+            	if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
+                	adstatus_async = new Adstatus_Async();
+                    adstatus_async.execute();	 
+                }
             }
         }
         callingCount++;

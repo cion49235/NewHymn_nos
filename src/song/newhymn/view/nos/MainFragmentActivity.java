@@ -30,6 +30,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import kr.co.inno.autocash.service.AutoServiceActivity;
+import song.newhymn.view.nos.dao.Const;
 import song.newhymn.view.nos.fragment.FragmentActivity2;
 import song.newhymn.view.nos.util.PreferenceUtil;
 public class MainFragmentActivity extends SherlockFragmentActivity implements CustomPopupListener, AdViewListener{
@@ -93,8 +94,12 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
 		CustomPopup.setCustomPopupListener(this);
         CustomPopup.startCustomPopup(this, "47bjv5uh");
 //		init_admob_naive();
-        addBannerView();
-        auto_service();
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();
+        	auto_service();
+        }else {
+        	auto_service_stop();
+        }
 		exit_handler();
 	}
 	
@@ -102,6 +107,11 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements Cu
         Intent intent = new Intent(context, AutoServiceActivity.class);
         context.stopService(intent);
         context.startService(intent);
+    }
+	
+	private void auto_service_stop() {
+        Intent intent = new Intent(context, AutoServiceActivity.class);
+        context.stopService(intent);
     }
 	
 	public static RelativeLayout ad_layout;

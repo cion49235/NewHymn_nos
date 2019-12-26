@@ -29,6 +29,7 @@ import android.view.KeyEvent;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import song.newhymn.view.nos.dao.Const;
 import song.newhymn.view.nos.fragment.FragmentActivity2;
 import song.newhymn.view.nos.util.PreferenceUtil;
 import song.newhymn.view.nos.widget.DialogMainPopup;
@@ -93,8 +94,9 @@ public class MainFragmentActivity extends SherlockFragmentActivity implements  A
 		tab = actionbar.newTab().setText(context.getString(R.string.tab_menu_2)).setTabListener(tabListener);
 		actionbar.addTab(tab);
 //		init_admob_naive();
-        
-        addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+			addBannerView();	
+		}
         if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_RECOMMEND_STATUS, "N").equals("Y")){
             main_popup();
         }
